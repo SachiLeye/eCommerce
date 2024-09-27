@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../partials/head') %>
+</head>
+<body class="bg-gray-100">
+  <%- include('../partials/header') %>
+  
+  <main class="container mx-auto px-6 py-8">
+    <h1 class="text-4xl font-bold mb-8">Manage Products</h1>
+    
+    <div class="mb-8">
+      <a href="/admin/add-product" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Add New Product</a>
+    </div>
+    
+    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+      <table class="w-full">
+        <thead>
+          <tr class="bg-gray-200">
+            <th class="px-6 py-3 text-left">Name</th>
+            <th class="px-6 py-3 text-left">Category</th>
+            <th class="px-6 py-3 text-left">Price</th>
+            <th class="px-6 py-3 text-left">Stock</th>
+            <th class="px-6 py-3 text-left">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% products.forEach(product => { %>
+            <tr>
+              <td class="px-6 py-4"><%= product.name %></td>
+              <td class="px-6 py-4"><%= product.category %></td>
+              <td class="px-6 py-4">$<%= product.price.toFixed(2) %></td>
+              <td class="px-6 py-4"><%= product.stock %></td>
+              <td class="px-6 py-4">
+                <a href="/admin/edit-product/<%= product.id %>" class="text-blue-500 hover:text-blue-600 mr-2">Edit</a>
+                <form action="/admin/delete-product" method="POST" class="inline">
+                  <input type="hidden" name="id" value="<%= product.id %>">
+                  <button type="submit" class="text-red-500 hover:text-red-600">Delete</button>
+                </form>
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <%- include('../partials/footer') %>
+</body>
+</html>

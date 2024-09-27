@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../partials/head') %>
+</head>
+<body class="bg-gray-100">
+  <%- include('../partials/header') %>
+  
+  <main class="container mx-auto px-6 py-8">
+    <h1 class="text-4xl font-bold mb-8">Admin Dashboard</h1>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="bg-white rounded-lg shadow-md p-6">
+        <h2 class="text-2xl font-semibold mb-4">Products</h2>
+        <p class="mb-4">Manage your product inventory</p>
+        <a href="/admin/products" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">View Products</a>
+      </div>
+      <div class="bg-white rounded-lg shadow-md p-6">
+        <h2 class="text-2xl font-semibold mb-4">Orders</h2>
+        <p class="mb-4">View and manage customer orders</p>
+        <a href="/admin/orders" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">View Orders</a>
+      </div>
+      <div class="bg-white rounded-lg shadow-md p-6">
+        <h2 class="text-2xl font-semibold mb-4">Users</h2>
+        <p class="mb-4">Manage user accounts</p>
+        <a href="/admin/users" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">View Users</a>
+      </div>
+    </div>
+  </main>
+
+  <%- include('../partials/footer') %>
+</body>
+</html>
