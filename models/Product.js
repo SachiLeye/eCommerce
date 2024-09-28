@@ -15,6 +15,11 @@ class Product {
       [name, description, price, stock, imageUrl]
     );
   }
+
+   // Find products by category
+   static findByCategory(category) {
+    return db.execute('SELECT * FROM products WHERE category = ?', [category]);
+  }
 }
 
 module.exports = Product;
