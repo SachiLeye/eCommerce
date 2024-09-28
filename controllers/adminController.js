@@ -4,6 +4,7 @@ exports.getDashboard = (req, res) => {
   res.render('admin/dashboard');
 };
 
+
 exports.getProducts = (req, res) => {
   Product.findAll()
     .then(([products]) => {
