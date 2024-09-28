@@ -3,8 +3,6 @@
     <div class="flex justify-between items-center">
       <a href="/" class="text-2xl font-bold">Oversized T-Shirts Shop</a>
       <div class="flex items-center space-x-4">
-        
-        <!-- Dropdown box for Products Category -->
         <select onchange="window.location.href=this.value" class="px-3 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
           <option value="#" selected disabled>Products Category</option>
           <option value="/products/category/kids">Kids</option>
@@ -13,17 +11,25 @@
           <option value="/products/category/trends">Trends</option>
           <option value="/products/category/customize">Customize</option>
         </select>
-        
-        <!-- Cart and other links -->
+
         <a href="/cart" class="px-3 py-2 hover:bg-blue-700 rounded">Cart</a>
-        <% if (locals.user) { %>
-          <a href="/profile" class="px-3 py-2 hover:bg-blue-700 rounded"><%= user.name %></a>
-          <a href="/logout" class="px-3 py-2 hover:bg-blue-700 rounded">Logout</a>
+        
+        <% if (locals.user) { %><!-- Check if user is defined -->
+          <a href="/profile" class="px-3 py-2 hover:bg-gray-700 rounded"><%= user.name %></a>
+          <form action="/users/logout" method="POST" style="display: inline;" onsubmit="return confirmLogout();">
+            <button type="submit" class="px-3 py-2 bg-red-600 text-white hover:bg-red-700 rounded">Logout</button>
+          </form>
         <% } else { %>
-          <a href="/login" class="px-3 py-2 hover:bg-blue-700 rounded">Login</a>
-          <a href="/register" class="px-3 py-2 hover:bg-blue-700 rounded">Register</a>
+          <a href="/login" class="px-3 py-2 hover:bg-gray-700 rounded">Login</a>
+          <a href="/register" class="px-3 py-2 hover:bg-gray-700 rounded">Register</a>
         <% } %>
       </div>
     </div>
   </nav>
 </header>
+
+<script>
+  function confirmLogout() {
+    return confirm("Are you sure you want to log out?");
+  }
+</script>

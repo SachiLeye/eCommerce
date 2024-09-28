@@ -29,7 +29,10 @@ app.use(session({
     maxAge: 24 * 60 * 60 * 1000 // 1 day session expiry
   }
 }));
-
+app.use((req, res, next) => {
+  res.locals.user = req.session.user || null;
+  next();
+});
 // Set view engine
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
@@ -55,8 +58,6 @@ app.get('/', (req, res, next) => {
     .catch(err => next(err)); // Pass error to centralized error handler
 });
 
-
-
 // FAQ route
 app.get('/faq', (req, res) => {
   res.render('faq', { user: req.session.user || null });
@@ -81,6 +82,7 @@ app.get('/terms', (req, res) => {
 app.get('/login', (req, res) => {
   res.render('login', { user: req.session.user || null });
 });
+
 
 // regist3er route
 app.get('/register', (req, res) => {
