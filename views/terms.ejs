@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('partials/head') %>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;500;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Raleway', sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+  <%- include('partials/header') %>
+
+  <main class="container mx-auto px-6 py-12">
+    <h1 class="text-5xl font-bold mb-12 text-center text-indigo-600">Terms & Conditions</h1>
+    
+    <section class="space-y-12">
+      <!-- Section 1: Introduction -->
+      <div class="bg-white rounded-lg shadow-lg p-8">
+        <h2 class="text-2xl font-bold mb-4 text-indigo-500">Introduction</h2>
+        <p class="text-gray-600 leading-relaxed">
+          Welcome to our website. By accessing or using our service, you agree to be bound by the following terms and conditions.
+          Please read them carefully before proceeding. If you do not agree with any part of these terms, you must not use our services.
+        </p>
+      </div>
+
+      <!-- Section 2: User Responsibilities -->
+      <div class="bg-gray-200 rounded-lg shadow-lg p-8">
+        <h2 class="text-2xl font-bold mb-4 text-indigo-500">User Responsibilities</h2>
+        <p class="text-gray-600 leading-relaxed">
+          As a user, you are responsible for ensuring that your use of the site complies with all applicable laws and regulations.
+          You agree not to misuse our services, including but not limited to attempting to access restricted areas, submitting false information, or using the site for unlawful activities.
+        </p>
+      </div>
+
+      <!-- Section 3: Intellectual Property -->
+      <div class="bg-white rounded-lg shadow-lg p-8">
+        <h2 class="text-2xl font-bold mb-4 text-indigo-500">Intellectual Property</h2>
+        <p class="text-gray-600 leading-relaxed">
+          All content, logos, and designs on this site are the intellectual property of [Your Company]. You are not permitted to copy, reproduce, or use our content without explicit permission. 
+          Any unauthorized use may result in legal action.
+        </p>
+      </div>
+
+      <!-- Section 4: Limitation of Liability -->
+      <div class="bg-gray-200 rounded-lg shadow-lg p-8">
+        <h2 class="text-2xl font-bold mb-4 text-indigo-500">Limitation of Liability</h2>
+        <p class="text-gray-600 leading-relaxed">
+          We strive to ensure that all information on our site is accurate and up-to-date. However, we make no guarantees regarding the completeness or accuracy of the content.
+          [Your Company] will not be held liable for any direct, indirect, or consequential damages arising from your use of the site.
+        </p>
+      </div>
+
+      <!-- Section 5: Modifications to Terms -->
+      <div class="bg-white rounded-lg shadow-lg p-8">
+        <h2 class="text-2xl font-bold mb-4 text-indigo-500">Modifications to Terms</h2>
+        <p class="text-gray-600 leading-relaxed">
+          We reserve the right to update or modify these terms at any time without prior notice. Your continued use of the service following any changes constitutes acceptance of the revised terms. 
+          We encourage you to review this page periodically to stay informed of any updates.
+        </p>
+      </div>
+
+      <!-- Section 6: Contact Information -->
+      <div class="bg-indigo-600 rounded-lg shadow-lg p-8 text-white">
+        <h2 class="text-2xl font-bold mb-4">Contact Us</h2>
+        <p class="leading-relaxed">
+          If you have any questions regarding these terms, please contact us at:
+        </p>
+        <p class="mt-2">Email: <a href="mailto:legal@yourcompany.com" class="underline">legal@yourcompany.com</a></p>
+        <p class="mt-2">Phone: <a href="tel:+1234567890" class="underline">+1 (234) 567-890</a></p>
+      </div>
+    </section>
+  </main>
+
+  <%- include('partials/footer') %>
+</body>
+</html>
