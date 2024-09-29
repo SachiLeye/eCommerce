@@ -16,9 +16,12 @@ exports.getProducts = (req, res) => {
     });
 };
 
+// Update getAddProduct in adminController.js
 exports.getAddProduct = (req, res) => {
-  res.render('admin/add-product');
+  const category = req.params.category; // Get the category from the URL
+  res.render('admin/add-product', { category }); // Pass the category to the view
 };
+
 
 exports.postAddProduct = (req, res) => {
   const { name, description, price, stock, category, imageUrl } = req.body;

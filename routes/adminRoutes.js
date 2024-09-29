@@ -31,6 +31,11 @@ router.post('/logout', (req, res) => {
   });
 });
 
+// Route to handle admin login logic (POST)
+router.post('/login', (req, res) => {
+    // Logic for handling login (e.g., authentication)
+});
+
 // Admin dashboard route
 // Admin dashboard route
 router.get('/dashboard', (req, res) => {
@@ -49,6 +54,9 @@ router.get('/products', (req, res) => {
   adminController.getProducts(req, res);
 });
 router.get('/add-product', adminController.getAddProduct);
+// Update this line in adminRouter.js
+router.get('/add-product/:category', adminController.getAddProduct);
+
 router.post('/add-product', adminController.postAddProduct);
 router.get('/edit-product/:id', adminController.getEditProduct);
 router.post('/edit-product', adminController.postEditProduct);
