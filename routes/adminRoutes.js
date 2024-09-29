@@ -8,18 +8,19 @@ router.get('/login', (req, res) => {
 });
 
 // Admin login route
+// Admin login route
 router.post('/login', (req, res) => {
-    const { email, password } = req.body;
-  
-    // Hardcoded admin credentials
-    if (email === 'admin' && password === 'admin') {
-      req.session.user = { email: 'admin' }; // Set the session for admin user
-      res.redirect('/admin/dashboard'); // Redirect to admin dashboard
-    } else {
-      res.render('admin/login', { error: 'Invalid admin credentials', user: req.session.user || null });
-    }
-  });
-  
+  const { email, password } = req.body;
+
+  // Hardcoded admin credentials
+  if (email === 'admin' && password === 'admin') {
+    req.session.user = { email: 'admin', role: 'admin' }; // Set the session for admin user with role
+    res.redirect('/admin/dashboard'); // Redirect to admin dashboard
+  } else {
+    res.render('admin/login', { error: 'Invalid admin credentials', user: req.session.user || null });
+  }
+});
+
 
 // Logout route
 router.post('/logout', (req, res) => {

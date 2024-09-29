@@ -33,6 +33,7 @@ app.use((req, res, next) => {
   res.locals.user = req.session.user || null;
   next();
 });
+
 // Set view engine
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
