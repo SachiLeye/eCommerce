@@ -40,8 +40,12 @@ exports.login = (req, res) => {
             return res.status(400).render('login', { error: 'Invalid email or password' });
           }
 
-          req.session.userId = user.id;
-          req.session.userName = user.name;
+          // Store user info in session
+          req.session.user = {
+            id: user.id,
+            name: user.name,
+            email: user.email
+          };
           res.redirect('/');
         });
     })
@@ -50,6 +54,7 @@ exports.login = (req, res) => {
       res.status(500).render('login', { error: 'Server error' });
     });
 };
+
 
 exports.logout = (req, res) => {
   req.session.destroy((err) => {

@@ -29,6 +29,10 @@ app.use(session({
     maxAge: 24 * 60 * 60 * 1000 // 1 day session expiry
   }
 }));
+app.use((req, res, next) => {
+  res.locals.user = req.session.user || null;
+  next();
+});
 
 // Set view engine
 app.set('view engine', 'ejs');
@@ -60,20 +64,34 @@ app.get('/faq', (req, res) => {
   res.render('faq', { user: req.session.user || null });
 });
 
+// about route
+app.get('/about', (req, res) => {
+  res.render('about', { user: req.session.user || null });
+});
+
+// contact route
+app.get('/contact', (req, res) => {
+  res.render('contact', { user: req.session.user || null });
+});
+
+// terms route
+app.get('/terms', (req, res) => {
+  res.render('terms', { user: req.session.user || null });
+});
+
 // login route
 app.get('/login', (req, res) => {
   res.render('login', { user: req.session.user || null });
 });
+
 
 // regist3er route
 app.get('/register', (req, res) => {
   res.render('register', { user: req.session.user || null });
 });
 
-// kids route
-app.get('/kids', (req, res) => {
-  res.render('kids', { user: req.session.user || null });
-});
+
+
 // 404 Route
 app.use((req, res, next) => {
   res.status(404).render('error', { 
@@ -90,6 +108,7 @@ app.use((err, req, res, next) => {
     statusCode: err.status || 500 // Pass the status code
   });
 });
+
 
 
 
