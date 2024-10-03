@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('partials/head') %>
+  <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body class="bg-gray-100" x-data="{ activeTab: 'kids' }">
+  <%- include('partials/header') %>
+  
+  <main class="container mx-auto px-6 py-8">
+    <h1 class="text-4xl font-bold mb-8">Manage Products</h1>
+    
+    <div class="mb-8 flex space-x-4">
+      <button @click="activeTab = 'kids'" :class="{ 'bg-blue-500': activeTab === 'kids', 'bg-gray-300': activeTab !== 'kids' }" class="text-white px-4 py-2 rounded hover:bg-blue-600 transition">Kids</button>
+      <button @click="activeTab = 'teens'" :class="{ 'bg-blue-500': activeTab === 'teens', 'bg-gray-300': activeTab !== 'teens' }" class="text-white px-4 py-2 rounded hover:bg-blue-600 transition">Teens</button>
+      <button @click="activeTab = 'adults'" :class="{ 'bg-blue-500': activeTab === 'adults', 'bg-gray-300': activeTab !== 'adults' }" class="text-white px-4 py-2 rounded hover:bg-blue-600 transition">Adults</button>
+      <button @click="activeTab = 'trends'" :class="{ 'bg-blue-500': activeTab === 'trends', 'bg-gray-300': activeTab !== 'trends' }" class="text-white px-4 py-2 rounded hover:bg-blue-600 transition">Trends</button>
+      <button @click="activeTab = 'customize'" :class="{ 'bg-blue-500': activeTab === 'customize', 'bg-gray-300': activeTab !== 'customize' }" class="text-white px-4 py-2 rounded hover:bg-blue-600 transition">Customize</button>
+    </div>
+    
+    <template x-for="category in ['kids', 'teens', 'adults', 'trends', 'customize']">
+      <div x-show="activeTab === category">
+        <div class="mb-8">
+          <button @click="window.location.href = `/admin/adminaddproducts/${category}`" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
+            Add New <span x-text="category.charAt(0).toUpperCase() + category.slice(1)"></span> Product
+          </button>
+        </div>
+        
+        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+          <table class="w-full">
+            <thead>
+              <tr class="bg-gray-200">
+                <th class="px-6 py-3 text-left">Name</th>
+                <th class="px-6 py-3 text-left">Price</th>
+                <th class="px-6 py-3 text-left">Stock</th>
+                <th class="px-6 py-3 text-left">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% products.forEach((product) => { %>
+                <tr>
+                  <td><%= product.name %></td>
+                  <td><%= product.price %></td>
+                  <td><%= product.stock %></td>
+                  <td>
+                    <!-- Add actions buttons (e.g., edit, delete) -->
+                  </td>
+                </tr>
+              <% }); %>
+            </tbody>
+          </table>
+        </div>
+        <h2><%= category.charAt(0).toUpperCase() + category.slice(1) %> Products</h2>
+      </div>
+    </template>
+  </main>
+  <%- include('partials/footer') %>
+</body>
+</html>
