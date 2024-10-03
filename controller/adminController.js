@@ -47,9 +47,6 @@ const adminController = {
             res.status(500).send('Failed to add product');
         }
     },
-    
-    
 };
-
 
 module.exports = adminController;

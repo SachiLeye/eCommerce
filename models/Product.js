@@ -24,7 +24,17 @@ const Product = {
       console.error('Error inserting product:', err);
       throw err;
     }
+  },
+  deleteProduct: async (id) => {
+    try {
+      const [result] = await pool.query('DELETE FROM products WHERE id = ?', [id]);
+      return result;
+    } catch (err) {
+      console.error('Error deleting product:', err);
+      throw err;
+    }
   }
+  
 };
 
 

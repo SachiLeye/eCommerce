@@ -64,9 +64,8 @@
                   <td class="border px-4 py-2"><%= product.stock %></td>
                   <td class="border px-4 py-2"><%= product.description %></td>
                   <td class="border px-4 py-2">
-                    <button class="bg-blue-500 text-white px-2 py-1 rounded">Edit</button>
-                    <button class="bg-red-500 text-white px-2 py-1 rounded">Delete</button>
-                  </td>
+                    <button class="bg-blue-500 text-white px-2 py-1 rounded" data-id="<%= product.id %>" onclick="confirmDelete(event, this)">Edit</button>
+                    <button class="bg-red-500 text-white px-2 py-1 rounded" data-id="<%= product.id %>" onclick="confirmDelete(event, this)">Delete</button>                  </td>
                 </tr>
               <% }); %>
             <% } else { %>
@@ -82,4 +81,23 @@
 
   <%- include('partials/footer') %>
 </body>
+<script>
+  function confirmDelete(event, button) {
+  event.preventDefault();
+  const id = button.getAttribute('data-id');
+  if (confirm(`Are you sure you want to delete product ${id}?`)) {
+    const category = new URLSearchParams(window.location.search).get('category');
+    fetch(`/admin/adminviewproducts/${id}?category=${category}`, { method: 'DELETE' })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          window.location.reload();
+        } else {
+          console.error('Error deleting product');
+        }
+      })
+      .catch(error => console.error(error));
+  }
+}
+</script>
 </html>

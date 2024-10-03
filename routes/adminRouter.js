@@ -35,6 +35,18 @@ router.get('/adminaddproducts/:category', (req, res) => {
     const { category } = req.params;
     res.render('adminaddproducts', { category });
 });
+router.delete('/adminviewproducts/:id', async (req, res) => {
+  try {
+    const id = req.params.id;
+    const category = req.query.category;
+    await Product.deleteProduct(id);
+    res.json({ success: true });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false });
+  }
+});
+
 
 // Handle product addition with image upload
 router.post('/adminaddproducts', upload.single('imageUrl'), adminController.addProduct);

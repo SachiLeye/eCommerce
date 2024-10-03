@@ -20,11 +20,12 @@ app.use(session({
 }));
 
 
+
 // Routes
 app.use('/', userRouter);
 app.use('/admin', adminRouter);
 app.use('/products', productRouter);
 
-app.listen(3030, () => {
-    console.log('Server running at http://localhost:3030');
+app.listen(4000, () => {
+    console.log('Server running at http://localhost:4000');
 });
