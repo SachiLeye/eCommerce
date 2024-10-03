@@ -46,6 +46,12 @@ router.delete('/adminviewproducts/:id', async (req, res) => {
     res.status(500).json({ success: false });
   }
 });
+router.get('/adminproduct/:id', adminController.getProductForEdit); // Fetch product details for editing
+
+// Update product
+router.post('/adminupdateproduct', upload.single('imageUrl'), adminController.updateProduct);
+
+
 
 
 // Handle product addition with image upload

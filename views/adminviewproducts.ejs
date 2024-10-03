@@ -64,8 +64,15 @@
                   <td class="border px-4 py-2"><%= product.stock %></td>
                   <td class="border px-4 py-2"><%= product.description %></td>
                   <td class="border px-4 py-2">
-                    <button class="bg-blue-500 text-white px-2 py-1 rounded" data-id="<%= product.id %>" onclick="confirmDelete(event, this)">Edit</button>
-                    <button class="bg-red-500 text-white px-2 py-1 rounded" data-id="<%= product.id %>" onclick="confirmDelete(event, this)">Delete</button>                  </td>
+                    <button 
+                    class="bg-blue-500 text-white px-2 py-1 rounded" 
+                    data-id="<%= product.id %>" 
+                    data-product='<%= JSON.stringify(product) %>' 
+                    onclick="openEditModal(JSON.parse(this.getAttribute('data-product')))">
+                    Edit
+                </button>                    
+                <button class="bg-red-500 text-white px-2 py-1 rounded" data-id="<%= product.id %>" onclick="confirmDelete(event, this)">Delete</button>                
+                  </td>
                 </tr>
               <% }); %>
             <% } else { %>
@@ -78,26 +85,103 @@
       </div>
     </template>
   </main>
+  <!-- Edit Product Modal -->
+<div id="editProductModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center">
+  <div class="bg-white p-5 rounded shadow-lg">
+      <h2 class="text-xl mb-4">Edit Product</h2>
+      <form id="editProductForm">
+          <input type="hidden" name="id" id="editProductId">
+          <div>
+              <label for="editProductName">Name:</label>
+              <input type="text" name="name" id="editProductName" required class="border p-2 w-full">
+          </div>
+          <div>
+              <label for="editProductDescription">Description:</label>
+              <textarea name="description" id="editProductDescription" required class="border p-2 w-full"></textarea>
+          </div>
+          <div>
+              <label for="editProductPrice">Price:</label>
+              <input type="number" name="price" id="editProductPrice" required class="border p-2 w-full">
+          </div>
+          <div>
+              <label for="editProductStock">Stock:</label>
+              <input type="number" name="stock" id="editProductStock" required class="border p-2 w-full">
+          </div>
+          <div>
+              <label for="editProductCategory">Category:</label>
+              <input type="text" name="category" id="editProductCategory" required class="border p-2 w-full">
+          </div>
+          <div>
+              <label for="editProductImage">Image:</label>
+              <input type="file" name="imageUrl" id="editProductImage" class="border p-2 w-full">
+          </div>
+          <div class="mt-4">
+              <button type="button" class="bg-blue-500 text-white px-4 py-2 rounded" onclick="updateProduct()">Update</button>
+              <button type="button" class="bg-red-500 text-white px-4 py-2 rounded" onclick="closeModal()">Cancel</button>
+          </div>
+      </form>
+  </div>
+</div>
+
+  
 
   <%- include('partials/footer') %>
 </body>
 <script>
-  function confirmDelete(event, button) {
-  event.preventDefault();
-  const id = button.getAttribute('data-id');
-  if (confirm(`Are you sure you want to delete product ${id}?`)) {
-    const category = new URLSearchParams(window.location.search).get('category');
-    fetch(`/admin/adminviewproducts/${id}?category=${category}`, { method: 'DELETE' })
-      .then(response => response.json())
-      .then(data => {
-        if (data.success) {
-          window.location.reload();
-        } else {
-          console.error('Error deleting product');
-        }
-      })
-      .catch(error => console.error(error));
-  }
+  function openEditModal(product) {
+    document.getElementById('editProductId').value = product.id;
+    document.getElementById('editProductName').value = product.name;
+    document.getElementById('editProductDescription').value = product.description;
+    document.getElementById('editProductPrice').value = product.price;
+    document.getElementById('editProductStock').value = product.stock;
+    document.getElementById('editProductCategory').value = product.category;
+
+    document.getElementById('editProductModal').classList.remove('hidden');
 }
+
+function closeModal() {
+    document.getElementById('editProductModal').classList.add('hidden');
+}
+
+function updateProduct() {
+    const formData = new FormData(document.getElementById('editProductForm'));
+    
+    fetch('/admin/adminupdateproduct', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('Product updated successfully.');
+            window.location.reload();
+        } else {
+            alert('Error updating product.');
+        }
+    })
+    .catch(error => console.error(error));
+
+    closeModal();
+}
+
+  function confirmDelete(event, button) {
+    event.preventDefault();
+    const id = button.getAttribute('data-id');
+    if (confirm(`Are you sure you want to delete product ${id}?`)) {
+        const category = new URLSearchParams(window.location.search).get('category');
+        fetch(`/admin/adminviewproducts/${id}?category=${category}`, { method: 'DELETE' })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Product deleted successfully.');
+                    window.location.reload();
+                } else {
+                    alert('Error deleting product: ' + data.message);
+                }
+            })
+            .catch(error => console.error(error));
+    }
+}
+
 </script>
 </html>

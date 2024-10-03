@@ -33,8 +33,30 @@ const Product = {
       console.error('Error deleting product:', err);
       throw err;
     }
-  }
-  
+  },
+  getProductById: async (id) => {
+    try {
+        const [rows] = await pool.query('SELECT * FROM products WHERE id = ?', [id]);
+        return rows[0]; // Return the first product found
+    } catch (err) {
+        console.error('Error retrieving product:', err);
+        throw err;
+    }
+},
+
+// Update a product
+updateProduct: async (product) => {
+    try {
+        const { id, name, description, price, stock, category, image_url } = product;
+        await pool.query(
+            'UPDATE products SET name = ?, description = ?, price = ?, stock = ?, category = ?, image_url = ? WHERE id = ?',
+            [name, description, price, stock, category, image_url, id]
+        );
+    } catch (err) {
+        console.error('Error updating product:', err);
+        throw err;
+    }
+}
 };
 
 

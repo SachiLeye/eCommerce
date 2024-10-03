@@ -47,6 +47,38 @@ const adminController = {
             res.status(500).send('Failed to add product');
         }
     },
+    getProductForEdit: async (req, res) => {
+        try {
+            const id = req.params.id;
+            const product = await Product.getProductById(id); // Add this method in the Product model
+            res.json(product);
+        } catch (err) {
+            console.error('Error fetching product for edit:', err);
+            res.status(500).send('Failed to fetch product details');
+        }
+    },
+
+    // Handle product update
+    updateProduct: async (req, res) => {
+        try {
+            const { id, name, description, price, stock, category } = req.body;
+            const imageUrl = req.file ? req.file.filename : '';
+            await Product.updateProduct({
+                id,
+                name,
+                description,
+                price,
+                stock,
+                category,
+                image_url: imageUrl
+            });
+            res.json({ success: true });
+        } catch (err) {
+            console.error('Error updating product:', err);
+            res.status(500).json({ success: false });
+        }
+    }
 };
+
 
 module.exports = adminController;
