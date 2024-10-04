@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('partials/head') %>
+  <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js" defer></script>
+</head>
+<body class="bg-gray-100">
+  <%- include('partials/header') %>
+  
+  <main class="container mx-auto px-6 py-8">
+    <h1 class="text-4xl font-bold mb-8 text-center">Contact Us</h1>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      
+      <div class="bg-white rounded-lg shadow-md p-6 text-center">
+        <div class="mb-4">
+          <svg class="w-12 h-12 mx-auto text-indigo-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12h2m-6 6h2M9 16H7m3-6h2m-6 6H7m6-6h2M9 12H7m6 6H7m6-6h2" />
+          </svg>
+        </div>
+        <h2 class="text-xl font-bold mb-2">Email Us</h2>
+        <p class="text-gray-600">Have any questions? Feel free to email us at:</p>
+        <a href="mailto:ecommerce@gmail.com" class="text-indigo-500 mt-2 inline-block">ecommerce@gmail.com</a>
+      </div>
+
+      <div class="bg-white rounded-lg shadow-md p-6 text-center">
+        <div class="mb-4">
+          <svg class="w-12 h-12 mx-auto text-indigo-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h2m0 0a5 5 0 0110 0v6a5 5 0 01-10 0v-6m0 0H1m10 0h2" />
+          </svg>
+        </div>
+        <h2 class="text-xl font-bold mb-2">Call Us</h2>
+        <p class="text-gray-600">Need immediate assistance? Give us a call:</p>
+        <a href="tel:+1234567890" class="text-indigo-500 mt-2 inline-block">+6393 0195 5434</a>
+      </div>
+
+      <div class="bg-white rounded-lg shadow-md p-6 text-center">
+        <div class="mb-4">
+          <svg class="w-12 h-12 mx-auto text-indigo-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8V4m0 0l-2.5 2.5L12 8l2.5-1.5L12 4m0 0v4m0 0l2.5-1.5m0 0L18 7m-6 1V4l-2.5 2.5M12 8l-2.5-1.5L12 4m0 0L9.5 6.5" />
+          </svg>
+        </div>
+        <h2 class="text-xl font-bold mb-2">Visit Us</h2>
+        <p class="text-gray-600">Drop by our office for a chat:</p>
+        <p class="text-gray-800 mt-2">Brgy. Masipit, Calapan City, Oriental Mindoro</p>
+      </div>
+
+      <div class="bg-white rounded-lg shadow-md p-6 text-center">
+        <div class="mb-4">
+          <svg class="w-12 h-12 mx-auto text-indigo-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h5m2 0h3m-5 4H7m-4-4h4m0 0h10m4-4v10m-4 0h-4m0 0H7" />
+          </svg>
+        </div>
+        <h2 class="text-xl font-bold mb-2">Follow Us</h2>
+        <p class="text-gray-600">Stay updated with our latest news:</p>
+        <div class="mt-2 space-x-4">
+          <a href="#" class="text-indigo-500">Facebook</a>
+          <a href="#" class="text-indigo-500">Twitter</a>
+          <a href="#" class="text-indigo-500">Instagram</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <%- include('partials/footer') %>
+</body>
+</html>
