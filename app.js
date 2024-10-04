@@ -11,7 +11,6 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-
 // Session configuration
 app.use(session({
     secret: 'your_secret_key',
@@ -20,7 +19,11 @@ app.use(session({
     cookie: { secure: false } // Set to true if using HTTPS
 }));
 
-
+app.use((req, res, next) => {
+    res.locals.nickName = req.session.nickName || null;
+    res.locals.role = req.session.role || null;
+    next();
+});
 
 // Routes
 app.use('/', userRouter);
