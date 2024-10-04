@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('partials/head') %>
+  <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js" defer></script>
+</head>
+<body class="bg-gray-100">
+  <%- include('partials/header') %>
+  
+  <main class="container mx-auto px-6 py-8">
+    <h1 class="text-4xl font-bold mb-8">Frequently Asked Questions</h1>
+    
+    <div class="space-y-4">
+      <div x-data="{ open: false }" class="bg-white rounded-lg shadow-md overflow-hidden">
+        <button @click="open = !open" class="flex justify-between items-center w-full px-6 py-4 text-left">
+          <span class="text-lg font-semibold">How long does shipping take?</span>
+          <svg class="w-5 h-5 transform transition-transform duration-200" :class="{ 'rotate-180': open }" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div x-show="open" class="px-6 pb-4">
+          <p>Shipping typically takes 3-5 business days for domestic orders and 7-14 business days for international orders.</p>
+        </div>
+      </div>
+      
+      <div x-data="{ open: false }" class="bg-white rounded-lg shadow-md overflow-hidden">
+        <button @click="open = !open" class="flex justify-between items-center w-full px-6 py-4 text-left">
+          <span class="text-lg font-semibold">What is your return policy?</span>
+          <svg class="w-5 h-5 transform transition-transform duration-200" :class="{ 'rotate-180': open }" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div x-show="open" class="px-6 pb-4">
+          <p>We offer a 30-day return policy for unworn items in their original condition. Please contact our customer service for more details.</p>
+        </div>
+      </div>
+      
+      <div x-data="{ open: false }" class="bg-white rounded-lg shadow-md overflow-hidden">
+        <button @click="open = !open" class="flex justify-between items-center w-full px-6 py-4 text-left">
+          <span class="text-lg font-semibold">How do I care for my oversized t-shirt?</span>
+          <svg class="w-5 h-5 transform transition-transform duration-200" :class="{ 'rotate-180': open }" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div x-show="open" class="px-6 pb-4">
+          <p>We recommend washing your t-shirt in cold water and hanging it to dry to maintain its shape and quality. Avoid using bleach or fabric softeners.</p>
+        </div>
+      </div>
+      
+      <div x-data="{ open: false }" class="bg-white rounded-lg shadow-md overflow-hidden">
+        <button @click="open = !open" class="flex justify-between items-center w-full px-6 py-4 text-left">
+          <span class="text-lg font-semibold">Do you offer international shipping?</span>
+          <svg class="w-5 h-5 transform transition-transform duration-200" :class="{ 'rotate-180': open }" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div x-show="open" class="px-6 pb-4">
+          <p>Yes, we offer international shipping to most countries. Shipping costs and delivery times may vary depending on the destination.</p>
+        </div>
+      </div>
+      
+      <div x-data="{ open: false }" class="bg-white rounded-lg shadow-md overflow-hidden">
+        <button @click="open = !open" class="flex justify-between items-center w-full px-6 py-4 text-left">
+          <span class="text-lg font-semibold">Can I customize my t-shirt?</span>
+          <svg class="w-5 h-5 transform transition-transform duration-200" :class="{ 'rotate-180': open }" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div x-show="open" class="px-6 pb-4">
+          <p>Yes, we offer customization options for our t-shirts. You can add text, choose from various designs, or even upload your own artwork. Check out our 'Customize' page for more information.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <%- include('partials/footer') %>
+</body>
+</html>
