@@ -34,35 +34,36 @@ const ph = {
     },
     loginUser: async (req, res) => {
         const { email, password } = req.body;
-
+    
         try {
             const [rows] = await User.findByEmail(email);
             if (rows.length > 0) {
                 const user = rows[0];
                 const isMatch = await bcrypt.compare(password, user.password);
-
+    
                 if (isMatch) {
-                    req.session.nickName = `${user.nickname}`;
+                    req.session.nickName = user.nickname;
                     req.session.role = user.role; // Store the user role in session
-
+                    req.session.userId = user.id; // Set user ID in session
+    
                     // Redirect based on user role
                     if (user.role && user.role.toLowerCase() === 'admin') {
-                        req.session.userId = user.id; // Set user ID in session
                         return res.redirect('/admin/admindashboard'); // Admin dashboard
                     } else {
                         return res.redirect('/userhomepage'); // Regular user homepage
                     }
                 } else {
-                    return res.render('login', { error: 'Invalid email or password.', email: email });
+                    return res.render('login', { error: 'Invalid email or password.', email });
                 }
             } else {
-                return res.render('login', { error: 'Invalid email or password.', email: email });
+                return res.render('login', { error: 'Invalid email or password.', email });
             }
         } catch (error) {
             console.error('Login error:', error);
             res.status(500).send('Error logging in');
         }
     }
+    
 };
 
 module.exports = ph;
