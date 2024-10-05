@@ -1,45 +1,58 @@
+const Product = require('../models/Product'); // Adjust the path if needed
+const pool = require('../config/db'); // Import your database configuration
+
+
 exports.getCart = (req, res) => {
     const cart = req.session.cart || { items: [], totalQty: 0, totalPrice: 0 };
     res.render('cart', { cart: cart });
   };
   
-  exports.addToCart = (req, res) => {
+  // Assuming you're using Mongoose or a similar ORM
+
+  exports.addToCart = async (req, res) => {
     const productId = req.body.productId;
-    const quantity = parseInt(req.body.quantity);
   
-    let cart = req.session.cart || { items: [], totalQty: 0, totalPrice: 0 };
+    try {
+      const product = await Product.getProductById(productId);
   
-    Product.findById(productId)
-      .then(([products]) => {
-        if (products.length === 0) {
-          return res.status(404).json({ error: 'Product not found' });
-        }
+      if (!product) {
+        return res.status(404).send('Product not found');
+      }
   
-        const product = products[0];
-        const cartItem = cart.items.find(item => item.id === productId);
+      // Get the cart from the session or initialize a new one
+      const cart = req.session.cart ? req.session.cart : { items: [], totalPrice: 0 };
   
-        if (cartItem) {
-          cartItem.quantity += quantity;
-        } else {
-          cart.items.push({
-            id: productId,
-            name: product.name,
-            price: product.price,
-            quantity: quantity
-          });
-        }
+      // Check if the product is already in the cart
+      const existingProductIndex = cart.items.findIndex(item => item.id == productId);
   
-        cart.totalQty += quantity;
-        cart.totalPrice += product.price * quantity;
+      if (existingProductIndex > -1) {
+        // Product already in cart, increase quantity
+        cart.items[existingProductIndex].quantity += 1;
+      } else {
+        // Add new product to cart
+        cart.items.push({
+          id: product.id,
+          name: product.name,
+          price: parseFloat(product.price),  // Ensure price is a number
+          quantity: 1
+        });
+      }
   
-        req.session.cart = cart;
-        res.redirect('/cart');
-      })
-      .catch((err) => {
-        console.error(err);
-        res.status(500).json({ error: 'Failed to add product to cart' });
-      });
+      // Update the total price
+      cart.totalPrice = cart.items.reduce((total, item) => total + (item.price * item.quantity), 0);
+  
+      // Save the updated cart to the session
+      req.session.cart = cart;
+  
+      res.redirect('/cart');
+    } catch (err) {
+      console.error('Error adding product to cart:', err);
+      res.status(500).send('Server Error');
+    }
   };
+  
+
+  
   
   exports.updateCartItem = (req, res) => {
     const productId = req.body.productId;

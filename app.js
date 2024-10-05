@@ -8,6 +8,9 @@ const cartRouter = require('./routes/cartRouter');
 const path = require('path');  // Add this line
 const app = express();
 
+app.use(express.static('public'));
+
+
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -51,6 +54,7 @@ app.get('/contact', (req, res) => {
 app.get('/about', (req, res) => {
   res.render('about', { user: req.session.user || null });
 });
+
 
 
 app.use('/cart', cartRouter);
