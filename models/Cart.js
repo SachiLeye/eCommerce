@@ -1,42 +1,78 @@
-const db = require('../config/db');
+const pool = require('../config/db');
 
-class Cart {
-  static async addItem(userId, productId, quantity) {
-    const [result] = await db.execute(
-      'INSERT INTO cart (user_id, product_id, quantity) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE quantity = quantity + VALUES(quantity)',
-      [userId, productId, quantity]
-    );
-    return result.affectedRows > 0;
-  }
+const Cart = {
+  // Add to Cart
+  addToCart: async (userId, productId, quantity) => {
+    try {
+      const [rows] = await pool.query(
+        'INSERT INTO cart (user_id, product_id, quantity) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE quantity = quantity + ?',
+        [userId, productId, quantity, quantity]
+      );
+      return rows;
+    } catch (err) {
+      console.error('Error adding to cart:', err);
+      throw err;
+    }
+  },
 
-  static async updateItem(userId, productId, quantity) {
-    const [result] = await db.execute(
-      'UPDATE cart SET quantity = ? WHERE user_id = ? AND product_id = ?',
-      [quantity, userId, productId]
-    );
-    return result.affectedRows > 0;
-  }
+  // Retrieve Cart Items by User ID
+  getCartByUserId: async (userId) => {
+    try {
+      const [rows] = await pool.query(
+        `SELECT cart.product_id, cart.quantity, products.name, products.price, products.image_url 
+        FROM cart 
+        JOIN products ON cart.product_id = products.id 
+        WHERE cart.user_id = ?`,
+        [userId]
+      );
+      return rows;
+    } catch (err) {
+      console.error('Error retrieving cart:', err);
+      throw err;
+    }
+  },
 
-  static async removeItem(userId, productId) {
-    const [result] = await db.execute(
-      'DELETE FROM cart WHERE user_id = ? AND product_id = ?',
-      [userId, productId]
-    );
-    return result.affectedRows > 0;
-  }
+  // Update Cart Item (change quantity)
+  updateCartItem: async (userId, productId, quantity) => {
+    try {
+      const [rows] = await pool.query(
+        'UPDATE cart SET quantity = ? WHERE user_id = ? AND product_id = ?',
+        [quantity, userId, productId]
+      );
+      return rows;
+    } catch (err) {
+      console.error('Error updating cart item:', err);
+      throw err;
+    }
+  },
 
-  static async getCart(userId) {
-    const [rows] = await db.execute(
-      'SELECT c.*, p.name, p.price, p.image_url FROM cart c JOIN products p ON c.product_id = p.id WHERE c.user_id = ?',
-      [userId]
-    );
-    return rows;
-  }
+  // Delete Cart Item
+  removeCartItem: async (userId, productId) => {
+    try {
+      const [rows] = await pool.query(
+        'DELETE FROM cart WHERE user_id = ? AND product_id = ?',
+        [userId, productId]
+      );
+      return rows;
+    } catch (err) {
+      console.error('Error removing cart item:', err);
+      throw err;
+    }
+  },
 
-  static async clearCart(userId) {
-    const [result] = await db.execute('DELETE FROM cart WHERE user_id = ?', [userId]);
-    return result.affectedRows > 0;
+  // Clear Cart (optional, can be called on user logout or order completion)
+  clearCart: async (userId) => {
+    try {
+      const [rows] = await pool.query(
+        'DELETE FROM cart WHERE user_id = ?',
+        [userId]
+      );
+      return rows;
+    } catch (err) {
+      console.error('Error clearing cart:', err);
+      throw err;
+    }
   }
-}
+};
 
 module.exports = Cart;

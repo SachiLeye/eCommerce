@@ -10,10 +10,11 @@ class User {
     return db.execute('SELECT * FROM users WHERE email = ?', [email]);
   }
 
-  static create(name, email, password) {
+  // Create user with default role as 'user'
+  static create(nickName, firstName, middleName, lastName, gender, email, password, role = 'user') {
     return db.execute(
-      'INSERT INTO users (name, email, password) VALUES (?, ?, ?)',
-      [name, email, password]
+        'INSERT INTO users (nickname, firstname, middlename, lastname, gender, email, password, role) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+        [nickName, firstName, middleName, lastName, gender, email, password, role]
     );
   }
 }

@@ -1,41 +1,56 @@
-<header class="bg-blue-600 text-white">
-  <nav class="container mx-auto px-6 py-3">
-    <div class="flex justify-between items-center">
-      <div class="flex items-center space-x-4">
-        <a href="/" class="text-2xl font-bold">Oversized T-Shirts Shop</a>
-        <% if (locals.user) { %>
-          <span class="text-white">Welcome:</span>
-          <span class="text-white underline"><%= user.name %></span>
-        <% } %>
-      </div>
-
-      <div class="flex items-center space-x-4">
-        <select onchange="window.location.href=this.value" class="px-3 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
-          <option value="#" selected disabled>Products Category</option>
-          <option value="/products/category/kids">Kids</option>
-          <option value="/products/category/teens">Teens</option>
-          <option value="/products/category/adults">Adults</option>
-          <option value="/products/category/trends">Trends</option>
-          <option value="/products/category/customize">Customize</option>
-        </select>
-
-        <a href="/cart" class="px-3 py-2 hover:bg-blue-700 rounded">Cart</a>
-
-        <% if (locals.user) { %>
-          <form action="/users/logout" method="POST" style="display: inline;" onsubmit="return confirmLogout();">
-            <button type="submit" class="px-3 py-2 bg-red-600 text-white hover:bg-red-700 rounded">Logout</button>
-          </form>
-        <% } else { %>
-          <a href="/login" class="px-3 py-2 hover:bg-gray-700 rounded">Login</a>
-          <a href="/register" class="px-3 py-2 hover:bg-gray-700 rounded">Register</a>
-        <% } %>
-      </div>
-    </div>
-  </nav>
-</header>
-
-<script>
-  function confirmLogout() {
-    return confirm("Are you sure you want to log out?");
-  }
-</script>
+<header class="bg-gray-600 text-white fixed top-0 left-0 right-0 z-50">
+    <nav class="container mx-auto px-6 py-3">
+        <div class="flex justify-between items-center">
+            <div class="flex items-center space-x-4">
+                <a href="/" class="text-2xl font-bold">Oversized T-Shirts Shop</a>
+                <% if (locals.nickName) { %>
+                    <span class="text-white">Logged in as: <span class="underline italic"><%= locals.nickName %></span></span>
+                <% } %>
+            </div>
+  
+            <div class="flex items-center space-x-4">
+                <!-- Show "Products Category" and "Cart" only for logged-in users who are not admin -->
+                <% if (locals.nickName && (!locals.role || locals.role.toLowerCase() !== 'admin')) { %>
+                    <select onchange="window.location.href=this.value" class="px-3 py-2 bg-gray-600 text-white rounded hover:bg-gray-700">
+                        <option value="#" selected disabled>Products Category</option>
+                        <option value="/products/category/kids">Kids</option>
+                        <option value="/products/category/teens">Teens</option>
+                        <option value="/products/category/adults">Adults</option>
+                        <option value="/products/category/trends">Trends</option>
+                        <option value="/products/category/customize">Customize</option>
+                    </select>
+                    <a href="/cart" class="px-3 py-2 hover:bg-gray-700 rounded">Cart</a>
+                <% } %>
+  
+                <!-- Show "Admin Dashboard" if the logged-in user is an admin -->
+                <% if (locals.role && locals.role.toLowerCase() === 'admin') { %>
+                    <a href="/admin/admindashboard" class="px-3 py-2 bg-yellow-500 hover:bg-yellow-600 rounded">Admin Dashboard</a>
+                <% } %>
+  
+                <!-- Show login/logout buttons -->
+                <% if (locals.nickName) { %>
+                    <form action="/logout" method="POST" class="inline" onsubmit="return confirmLogout()">
+                        <button type="submit" class="px-3 py-2 bg-red-500 hover:bg-red-700 text-white rounded">Logout</button>
+                    </form>
+                <% } else { %>
+                    <a href="/login" class="px-3 py-2 bg-green-600 hover:bg-green-700 rounded">Login</a>
+                    <a href="/register" class="px-3 py-2 bg-blue-600 hover:bg-blue-700 rounded">Register</a>
+                <% } %>
+            </div>
+        </div>
+    </nav>
+  </header>
+  
+  <script>
+    function confirmLogout() {
+        return confirm("Are you sure you want to logout?");
+    }
+  </script>
+  
+  <style>
+    /* Add some padding to the top of the body to prevent content from being hidden behind the fixed header */
+    body {
+        padding-top: 80px; /* Adjust this value based on your header's height */
+    }
+  </style>
+  

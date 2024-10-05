@@ -25,7 +25,10 @@
             <% cart.items.forEach(item => { %>
               <tr>
                 <td class="px-6 py-4"><%= item.name %></td>
-                <td class="px-6 py-4">$<%= item.price.toFixed(2) %></td>
+                
+                <!-- Fix: Ensure price is displayed correctly, even if item.price is not a number -->
+                <td class="px-6 py-4">$<%= typeof item.price === 'number' ? item.price.toFixed(2) : '0.00' %></td>
+                
                 <td class="px-6 py-4">
                   <form action="/cart/update" method="POST" class="flex items-center">
                     <input type="hidden" name="productId" value="<%= item.id %>">
@@ -33,7 +36,10 @@
                     <button type="submit" class="text-blue-500 hover:text-blue-600">Update</button>
                   </form>
                 </td>
-                <td class="px-6 py-4">$<%= (item.price * item.quantity).toFixed(2) %></td>
+
+                <!-- Fix: Ensure total price is calculated correctly -->
+                <td class="px-6 py-4">$<%= (typeof item.price === 'number' ? (item.price * item.quantity).toFixed(2) : '0.00') %></td>
+
                 <td class="px-6 py-4">
                   <form action="/cart/remove" method="POST">
                     <input type="hidden" name="productId" value="<%= item.id %>">
@@ -46,7 +52,10 @@
           <tfoot>
             <tr class="bg-gray-200">
               <td colspan="3" class="px-6 py-3 text-right font-bold">Total:</td>
-              <td class="px-6 py-3 font-bold">$<%= cart.totalPrice.toFixed(2) %></td>
+
+              <!-- Fix: Ensure total cart price is displayed correctly -->
+              <td class="px-6 py-3 font-bold">$<%= typeof cart.totalPrice === 'number' ? cart.totalPrice.toFixed(2) : '0.00' %></td>
+
               <td></td>
             </tr>
           </tfoot>
