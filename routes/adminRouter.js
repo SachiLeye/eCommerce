@@ -30,7 +30,7 @@ router.get('/adminviewproducts', async (req, res) => {
       res.status(500).send('Error retrieving products');
     }
   });
-// Render the add product page for a specific category
+
 router.get('/adminaddproducts/:category', (req, res) => {
     const { category } = req.params;
     res.render('adminaddproducts', { category });
