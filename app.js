@@ -5,6 +5,7 @@ const userRouter = require('./routes/userRouter');
 const adminRouter = require('./routes/adminRouter');
 const productRouter = require('./routes/productRouter');  // Add this line for product routes
 const cartRouter = require('./routes/cartRouter');
+const path = require('path');  // Add this line
 const app = express();
 
 app.set('view engine', 'ejs');
@@ -18,6 +19,7 @@ app.use(session({
     saveUninitialized: false,    
     cookie: { secure: false } // Set to true if using HTTPS
 }));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 app.use((req, res, next) => {
     res.locals.nickName = req.session.nickName || null;
